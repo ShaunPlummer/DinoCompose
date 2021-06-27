@@ -144,7 +144,6 @@ fun DrawScope.DinoView(dinoState: DinoState, color: Color) {
             top = dinoState.yPos - dinoState.path.getBounds().height
         )
     }) {
-        Log.w("Dino", "$dinoState.keyframe")
         drawPath(
             path = dinoState.path,
             color = color,
@@ -295,7 +294,6 @@ fun GameOverTextView(isGameOver: Boolean = true, modifier: Modifier = Modifier)
 
 
 fun DrawScope.drawBoundingBox(color: Color, rect: Rect, name: String? = null) {
-    name?.let { Log.w("drawBounds", "$name $rect") }
     if (showBounds.value)
     {
         drawRect(color, rect.topLeft, rect.size, style = Stroke(3f))

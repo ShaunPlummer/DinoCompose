@@ -1,6 +1,5 @@
 package com.wajahatkarim3.dino.compose.model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
@@ -20,7 +19,6 @@ class GameState(
 
     fun increaseScore() {
         _currentScore.postValue(requireNotNull(_currentScore.value).inc())
-        Log.d("GamteState", "new currentScore:${_currentScore.value}")
     }
 
     fun replay() {

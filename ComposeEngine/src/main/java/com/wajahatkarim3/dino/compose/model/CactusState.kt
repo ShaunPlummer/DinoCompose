@@ -1,6 +1,5 @@
 package com.wajahatkarim3.dino.compose.model
 
-import android.util.Log
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Path
 import com.wajahatkarim3.dino.compose.CactusPath
@@ -32,7 +31,6 @@ data class CactusState(
                 xPos = startX,
                 yPos = EARTH_Y_POSITION.toInt() + rand(20, 30)
             )
-            Log.w("Cactus", "${cactus.xPos}")
             cactusList.add(cactus)
 
             startX += distanceBetweenCactus
@@ -55,7 +53,6 @@ data class CactusState(
                 yPos = EARTH_Y_POSITION.toInt() + rand(20, 30)
             )
             cactusList.add(cactus)
-            Log.e("Cactus", "${cactus.xPos}")
         }
     }
 
