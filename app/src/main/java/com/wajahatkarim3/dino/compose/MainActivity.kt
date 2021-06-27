@@ -29,7 +29,9 @@ class MainActivity : AppCompatActivity() {
             ) {
                 DinoGameScene(
                     GameState(),
-                    deviceWidthInPixels = deviceWidthInPixels
+                    deviceWidthInPixels = deviceWidthInPixels,
+                    isDebuggable = true,
+                    onFinished = {}
                 )
             }
         }

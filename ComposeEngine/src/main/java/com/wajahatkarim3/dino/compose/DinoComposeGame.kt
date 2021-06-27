@@ -49,7 +49,7 @@ fun DinoGameScenePreview() {
 fun DinoGameScene(
     gameState: GameState,
     deviceWidthInPixels: Int,
-    isDebuggable: Boolean,
+    isDebuggable: Boolean = false,
     onFinished: () -> Unit
 ) {
     val cloudsState by remember { mutableStateOf(CloudState(deviceWidthInPixels, maxClouds = MAX_CLOUDS, speed = CLOUDS_SPEED)) }
