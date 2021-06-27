@@ -71,6 +71,7 @@ fun DinoGameScene(
     val dinoColor = MaterialTheme.colors.dinoColor
     val cactusColor = MaterialTheme.colors.cactusColor
 
+    Log.d("DinoGameScene", "currentScore:${gameState.currentScore.value}, isGameOver:${gameState.isGameOver}")
     if (!gameState.isGameOver)
     {
         // Game Loop
