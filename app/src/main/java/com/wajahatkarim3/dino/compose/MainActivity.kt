@@ -28,9 +28,10 @@ class MainActivity : AppCompatActivity() {
                 colors = if (isSystemInDarkTheme()) darkThemeColors else lightThemeColors
             ) {
                 DinoGameScene(
-                    GameState(),
-                    deviceWidthInPixels = deviceWidthInPixels
-                )
+                    gameState = GameState(),
+                    deviceWidthInPixels = deviceWidthInPixels,
+                    isDebuggable = true
+                ) {}
             }
         }
     }
