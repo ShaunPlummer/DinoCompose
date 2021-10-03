@@ -1,4 +1,4 @@
-package com.wajahatkarim3.dino.compose
+package com.wajahatkarim3.dino.compose.model
 
 import android.graphics.Matrix
 import androidx.compose.ui.graphics.Path

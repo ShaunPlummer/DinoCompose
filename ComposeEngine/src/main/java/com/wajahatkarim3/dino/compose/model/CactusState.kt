@@ -2,7 +2,6 @@ package com.wajahatkarim3.dino.compose.model
 
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Path
-import com.wajahatkarim3.dino.compose.CactusPath
 import com.wajahatkarim3.dino.compose.EARTH_SPEED
 import com.wajahatkarim3.dino.compose.EARTH_Y_POSITION
 
