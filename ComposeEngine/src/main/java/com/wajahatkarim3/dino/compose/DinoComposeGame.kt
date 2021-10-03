@@ -308,13 +308,3 @@ fun DrawScope.drawBoundingBox(color: Color, rect: Rect, name: String? = null) {
         )
     }
 }
-
-fun Rect.collided(other: Rect, doubtFactor: Float = 0f): Boolean {
-    if (right >= (other.left + doubtFactor) && right <= (other.right - doubtFactor))
-        return true
-//    if (right <= other.left || other.right <= left)
-//        return false
-//    if (bottom <= other.top || other.bottom <= top)
-//        return false
-    return false
-}
