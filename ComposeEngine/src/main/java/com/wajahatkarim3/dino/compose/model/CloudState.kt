@@ -1,7 +1,6 @@
 package com.wajahatkarim3.dino.compose.model
 
 import androidx.compose.ui.graphics.Path
-import com.wajahatkarim3.dino.compose.CloudPath
 import kotlin.random.Random
 
 data class CloudState(
