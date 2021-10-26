@@ -63,7 +63,7 @@ data class DinoState(
         }
     }
 
-    fun changeKeyframe()
+    private fun changeKeyframe()
     {
         keyframe++
         if (keyframe == 10)
