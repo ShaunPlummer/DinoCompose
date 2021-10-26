@@ -36,17 +36,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-    Spacer(modifier = Modifier.padding(start = 20.dp))
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MaterialTheme {
-        Greeting("Android")
-    }
-}
