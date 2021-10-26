@@ -10,11 +10,6 @@ data class EarthState(
     val speed: Int = 5
 ) {
     init {
-        initBlocks()
-    }
-
-    fun initBlocks()
-    {
         var startX = -EARTH_OFFSET.toFloat()
         for (i in 0 until maxBlocks) {
             var earth = EarthModel(

@@ -55,7 +55,7 @@ data class CactusState(
         }
     }
 
-    fun nextCactusX(lastX: Int): Int
+    private fun nextCactusX(lastX: Int): Int
     {
         var nextX = lastX + distanceBetweenCactus
         nextX += rand(0, distanceBetweenCactus)

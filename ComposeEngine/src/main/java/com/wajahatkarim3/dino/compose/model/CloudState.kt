@@ -10,11 +10,6 @@ data class CloudState(
     val speed: Int = 1
 ) {
     init {
-        initCloud()
-    }
-
-    private fun initCloud()
-    {
         var startX = 150
         for (i in 0 until maxClouds) {
             var cloud = CloudModel(
