@@ -13,7 +13,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
@@ -25,11 +24,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.wajahatkarim3.dino.compose.extensions.CactusView
+import com.wajahatkarim3.dino.compose.extensions.CloudsView
+import com.wajahatkarim3.dino.compose.extensions.DinoView
+import com.wajahatkarim3.dino.compose.extensions.EarthView
 import com.wajahatkarim3.dino.compose.model.*
 import com.washtechnologies.composeengine.R
 
 const val EARTH_Y_POSITION = 500f
-private const val EARTH_GROUND_STROKE_WIDTH = 10f
+const val EARTH_GROUND_STROKE_WIDTH = 10f
 private const val CLOUDS_SPEED = 1 // pixels per frame
 private const val MAX_CLOUDS = 3
 const val EARTH_OFFSET = 200
@@ -52,8 +55,24 @@ fun DinoGameScene(
     isDebuggable: Boolean = false,
     onFinished: () -> Unit
 ) {
-    val cloudsState by remember { mutableStateOf(CloudState(deviceWidthInPixels, maxClouds = MAX_CLOUDS, speed = CLOUDS_SPEED)) }
-    val earthState by remember { mutableStateOf(EarthState(deviceWidthInPixels, maxBlocks = 2, speed = EARTH_SPEED)) }
+    val cloudsState by remember {
+        mutableStateOf(
+            CloudState(
+                deviceWidthInPixels,
+                maxClouds = MAX_CLOUDS,
+                speed = CLOUDS_SPEED
+            )
+        )
+    }
+    val earthState by remember {
+        mutableStateOf(
+            EarthState(
+                deviceWidthInPixels,
+                maxBlocks = 2,
+                speed = EARTH_SPEED
+            )
+        )
+    }
     val cactusState by remember {
         mutableStateOf(
             CactusState(
@@ -71,9 +90,11 @@ fun DinoGameScene(
     val dinoColor = MaterialTheme.colors.dinoColor
     val cactusColor = MaterialTheme.colors.cactusColor
 
-    Log.d("DinoGameScene", "currentScore:${gameState.currentScore.value}, isGameOver:${gameState.isGameOver}")
-    if (!gameState.isGameOver)
-    {
+    Log.d(
+        "DinoGameScene",
+        "currentScore:${gameState.currentScore.value}, isGameOver:${gameState.isGameOver}"
+    )
+    if (!gameState.isGameOver) {
         // Game Loop
         gameState.increaseScore()
         cloudsState.moveForward()
@@ -112,7 +133,7 @@ fun DinoGameScene(
                 }
             )
     ) {
-        if(isDebuggable) {
+        if (isDebuggable) {
             ShowBoundsSwitchView()
         }
         HighScoreTextViews(requireNotNull(currentScore), requireNotNull(highScore))
@@ -134,97 +155,10 @@ fun DinoGameScene(
             .padding(top = 150.dp)
             .fillMaxWidth()
     )
-
-}
-
-fun DrawScope.DinoView(dinoState: DinoState, color: Color) {
-    withTransform({
-        translate(
-            left = dinoState.xPos,
-            top = dinoState.yPos - dinoState.path.getBounds().height
-        )
-    }) {
-        drawPath(
-            path = dinoState.path,
-            color = color,
-            style = Fill
-        )
-        drawBoundingBox(color = Color.Green, rect = dinoState.path.getBounds())
-    }
-}
-
-fun DrawScope.CloudsView(cloudState: CloudState, color: Color)
-{
-    cloudState.cloudsList.forEach { cloud ->
-        withTransform({
-            translate(
-                left = cloud.xPos.toFloat(),
-                top = cloud.yPos.toFloat()
-            )
-        })
-        {
-            drawPath(
-                path = cloudState.cloudsList.first().path,
-                color = color,
-                style = Stroke(2f)
-            )
-
-            drawBoundingBox(color = Color.Blue, rect = cloud.path.getBounds())
-        }
-    }
-}
-
-fun DrawScope.EarthView(earthState: EarthState, color: Color, deviceWidthInPixels: Int)
-{
-    // Ground Line
-    drawLine(
-        color = color,
-        start = Offset(x = 0f, y = EARTH_Y_POSITION),
-        end = Offset(x = deviceWidthInPixels.toFloat(), y = EARTH_Y_POSITION),
-        strokeWidth = EARTH_GROUND_STROKE_WIDTH
-    )
-    earthState.blocksList.forEach { block ->
-        drawLine(
-            color = color,
-            start = Offset(x = block.xPos, y = EARTH_Y_POSITION + 20),
-            end = Offset(x = block.size, y = EARTH_Y_POSITION + 20),
-            strokeWidth = EARTH_GROUND_STROKE_WIDTH / 5,
-            pathEffect = PathEffect.dashPathEffect(floatArrayOf(20f, 40f), 0f)
-        )
-        drawLine(
-            color = color,
-            start = Offset(x = block.xPos, y = EARTH_Y_POSITION + 30),
-            end = Offset(x = block.size, y = EARTH_Y_POSITION + 30),
-            strokeWidth = EARTH_GROUND_STROKE_WIDTH / 5,
-            pathEffect = PathEffect.dashPathEffect(floatArrayOf(15f, 50f), 40f)
-        )
-    }
-}
-
-fun DrawScope.CactusView(cactusState: CactusState, color: Color)
-{
-    cactusState.cactusList.forEach { cactus ->
-        withTransform({
-            scale(cactus.scale, cactus.scale)
-            translate(
-                left = cactus.xPos.toFloat(),
-                top = cactus.getBounds().top * cactus.scale
-            )
-        })
-        {
-            drawPath(
-                path = cactus.path,
-                color = color,
-                style = Fill
-            )
-            drawBoundingBox(color = Color.Red, rect = cactus.path.getBounds())
-        }
-    }
 }
 
 @Composable
-fun HighScoreTextViews(currentScore: Int, highScore: Int)
-{
+fun HighScoreTextViews(currentScore: Int, highScore: Int) {
     Spacer(modifier = Modifier.padding(top = 50.dp))
     Row(
         modifier = Modifier
@@ -247,8 +181,7 @@ fun HighScoreTextViews(currentScore: Int, highScore: Int)
 }
 
 @Composable
-fun ShowBoundsSwitchView()
-{
+fun ShowBoundsSwitchView() {
     Spacer(modifier = Modifier.padding(top = 20.dp))
     Row(
         modifier = Modifier
@@ -265,8 +198,7 @@ fun ShowBoundsSwitchView()
 }
 
 @Composable
-fun GameOverTextView(isGameOver: Boolean = true, modifier: Modifier = Modifier)
-{
+fun GameOverTextView(isGameOver: Boolean = true, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Text(
             text = if (isGameOver) "GAME OVER" else "",
@@ -292,10 +224,8 @@ fun GameOverTextView(isGameOver: Boolean = true, modifier: Modifier = Modifier)
     }
 }
 
-
 fun DrawScope.drawBoundingBox(color: Color, rect: Rect, name: String? = null) {
-    if (showBounds.value)
-    {
+    if (showBounds.value) {
         drawRect(color, rect.topLeft, rect.size, style = Stroke(3f))
         drawRect(
             color,
