@@ -141,7 +141,14 @@ fun DinoGameScene(
             EarthView(earthState, color = earthColor, deviceWidthInPixels)
             CloudsView(cloudsState, color = cloudsColor)
             DinoView(dinoState, color = dinoColor)
-            CactusView(cactusState, color = cactusColor)
+
+            cactusState.cactusList.forEach {
+                it.draw(
+                    canvas = this,
+                    color = cactusColor
+                )
+            }
+
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Button(onClick = onFinished) {

@@ -1,9 +1,14 @@
 package com.wajahatkarim3.dino.compose.model
 
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.withTransform
 import com.wajahatkarim3.dino.compose.EARTH_SPEED
 import com.wajahatkarim3.dino.compose.EARTH_Y_POSITION
+import com.wajahatkarim3.dino.compose.drawBoundingBox
 
 data class CactusState(
     val deviceWidthInPixels: Int,
@@ -17,8 +22,7 @@ data class CactusState(
         initCactus()
     }
 
-    fun initCactus()
-    {
+    fun initCactus() {
         cactusList.clear()
         var startX = deviceWidthInPixels + 150
         var cactusCount = 3
@@ -37,8 +41,7 @@ data class CactusState(
         }
     }
 
-    fun moveForward()
-    {
+    fun moveForward() {
         cactusList.forEach { cactus ->
             cactus.xPos -= cactusSpeed
         }
@@ -55,8 +58,7 @@ data class CactusState(
         }
     }
 
-    private fun nextCactusX(lastX: Int): Int
-    {
+    private fun nextCactusX(lastX: Int): Int {
         var nextX = lastX + distanceBetweenCactus
         nextX += rand(0, distanceBetweenCactus)
         if (nextX < deviceWidthInPixels)
@@ -70,16 +72,35 @@ data class CactusModel(
     val scale: Float = 1f,
     var xPos: Int = 0,
     var yPos: Int = 0,
-    var path: Path = CactusPath()
+    var path: Path = CactusPath(),
 ) {
 
-    fun getBounds() : Rect
-    {
+    fun getBounds(): Rect {
         return Rect(
             left = xPos.toFloat(),
             top = yPos.toFloat() - (path.getBounds().height * scale),
             right = xPos + (path.getBounds().width * scale),
             bottom = yPos.toFloat()
         )
+    }
+
+    fun draw(canvas: DrawScope, color: Color) {
+        canvas.apply {
+            withTransform({
+                scale(scale, scale)
+                translate(
+                    left = xPos.toFloat(),
+                    top = getBounds().top * scale
+                )
+            })
+            {
+                drawPath(
+                    path = path,
+                    color = color,
+                    style = Fill
+                )
+                drawBoundingBox(color = Color.Red, rect = path.getBounds())
+            }
+        }
     }
 }
