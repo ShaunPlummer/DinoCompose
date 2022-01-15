@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.wajahatkarim3.dino.compose.extensions.CactusView
 import com.wajahatkarim3.dino.compose.extensions.CloudsView
 import com.wajahatkarim3.dino.compose.extensions.DinoView
 import com.wajahatkarim3.dino.compose.extensions.EarthView
@@ -44,7 +43,11 @@ var showBounds = mutableStateOf(false)
 @Composable
 fun DinoGameScenePreview() {
     MaterialTheme {
-        DinoGameScene(GameState(), 1920, false) {}
+        DinoGameScene(GameState(), 1920, false, CactusState(
+            deviceWidthInPixels = 1920,
+            cactusSpeed = EARTH_SPEED,
+            cactusImageProvider = CactusImageProviderImp()
+        )) {}
     }
 }
 
@@ -53,6 +56,7 @@ fun DinoGameScene(
     gameState: GameState,
     deviceWidthInPixels: Int,
     isDebuggable: Boolean = false,
+    cactusStateRaw: CactusState,
     onFinished: () -> Unit
 ) {
     val cloudsState by remember {
@@ -75,10 +79,7 @@ fun DinoGameScene(
     }
     val cactusState by remember {
         mutableStateOf(
-            CactusState(
-                deviceWidthInPixels = deviceWidthInPixels,
-                cactusSpeed = EARTH_SPEED
-            )
+            cactusStateRaw
         )
     }
     val dinoState by remember { mutableStateOf(DinoState()) }

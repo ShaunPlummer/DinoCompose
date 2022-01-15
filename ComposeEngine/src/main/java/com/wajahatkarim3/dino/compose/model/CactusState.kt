@@ -1,19 +1,32 @@
 package com.wajahatkarim3.dino.compose.model
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.withTransform
 import com.wajahatkarim3.dino.compose.EARTH_SPEED
 import com.wajahatkarim3.dino.compose.EARTH_Y_POSITION
 import com.wajahatkarim3.dino.compose.drawBoundingBox
+import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
+
+
+private const val url: String =
+    "https://lh3.googleusercontent.com/nECZ-HcvioMs8aiWhOt8oOqeMWagKqYQZ2h-casdH-xvoSLbUh-RxKJt9J7hjB9zyBPcUlcb7wsTQ-mKexCqa56D9XLyQrSGWM-z9g=w600"
 
 data class CactusState(
     val deviceWidthInPixels: Int,
     val cactusList: ArrayList<CactusModel> = ArrayList(),
-    val cactusSpeed: Int = EARTH_SPEED
+    val cactusSpeed: Int = EARTH_SPEED,
+    val cactusImageProvider: CactusImageProvider
 ) {
 
     private val distanceBetweenCactus = (deviceWidthInPixels * 0.4f).toInt()
@@ -32,7 +45,8 @@ data class CactusState(
                 count = rand(1, 3),
                 scale = rand(0.85f, 1.2f),
                 xPos = startX,
-                yPos = EARTH_Y_POSITION.toInt() + rand(20, 30)
+                yPos = EARTH_Y_POSITION.toInt() + rand(20, 30),
+                imageProvider = cactusImageProvider
             )
             cactusList.add(cactus)
 
@@ -52,7 +66,8 @@ data class CactusState(
                 count = rand(1, 3),
                 scale = rand(0.85f, 1.2f),
                 xPos = nextCactusX(cactusList.last().xPos),
-                yPos = EARTH_Y_POSITION.toInt() + rand(20, 30)
+                yPos = EARTH_Y_POSITION.toInt() + rand(20, 30),
+                imageProvider = cactusImageProvider
             )
             cactusList.add(cactus)
         }
@@ -73,6 +88,7 @@ data class CactusModel(
     var xPos: Int = 0,
     var yPos: Int = 0,
     var path: Path = CactusPath(),
+    val imageProvider: CactusImageProvider
 ) {
 
     fun getBounds(): Rect {
@@ -94,13 +110,68 @@ data class CactusModel(
                 )
             })
             {
-                drawPath(
-                    path = path,
-                    color = color,
-                    style = Fill
+
+                drawImage(
+                    image = imageProvider.image!!.asImageBitmap()
                 )
-                drawBoundingBox(color = Color.Red, rect = path.getBounds())
+//
+                //drawBoundingBox(color = Color.Red, rect = path.getBounds())
+                drawBoundingBox(
+                    color = Color.Red,
+                    rect = Rect(offset = Offset.Zero, size = Size(50f, 50f))
+                )
             }
         }
     }
+
+    fun checkCollision(dinoState: DinoState): Boolean {
+        return dinoState.getBounds()
+            .deflate(DOUBT_FACTOR)
+            .overlaps(
+                path.getBounds()
+                    .deflate(DOUBT_FACTOR)
+            )
+    }
+}
+
+fun getResizedBitmap(bm: Bitmap, newHeight: Int, newWidth: Int): Bitmap? {
+    val width = bm.width
+    val height = bm.height
+    val scaleWidth = newWidth.toFloat() / width
+    val scaleHeight = newHeight.toFloat() / height
+    // CREATE A MATRIX FOR THE MANIPULATION
+    val matrix = Matrix()
+    // RESIZE THE BIT MAP
+    matrix.postScale(scaleWidth, scaleHeight)
+
+    // "RECREATE" THE NEW BITMAP
+    return Bitmap.createBitmap(
+        bm, 0, 0, width, height,
+        matrix, false
+    )
+}
+
+fun getBitmapFromURL(src: String?): Bitmap? {
+    return try {
+        val url = URL(src)
+        val connection = url
+            .openConnection() as HttpURLConnection
+        connection.doInput = true
+        connection.connect()
+        val input = connection.inputStream
+        BitmapFactory.decodeStream(input)
+    } catch (e: IOException) {
+        e.printStackTrace()
+        null
+    }
+}
+
+interface CactusImageProvider {
+    val image: Bitmap?
+}
+
+class CactusImageProviderImp : CactusImageProvider {
+
+    private val rawImage: Bitmap? = getBitmapFromURL(url)
+    override val image: Bitmap? = getResizedBitmap(rawImage!!, 50, 50)
 }
