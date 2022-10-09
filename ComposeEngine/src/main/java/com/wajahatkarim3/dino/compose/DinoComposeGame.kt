@@ -119,13 +119,7 @@ fun DinoGameScene(
 
         // Collision Check
         cactusState.cactusList.forEach {
-            if (dinoState.getBounds()
-                    .deflate(DOUBT_FACTOR)
-                    .overlaps(
-                        it.getBounds()
-                            .deflate(DOUBT_FACTOR)
-                    )
-            ) {
+            if (dinoState.isOverlapping(it)) {
                 gameState.isGameOver = true
                 return@forEach
             }
