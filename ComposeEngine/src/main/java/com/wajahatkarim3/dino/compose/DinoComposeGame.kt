@@ -1,7 +1,7 @@
 package com.wajahatkarim3.dino.compose
 
 import android.util.Log
-``import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -165,10 +165,10 @@ fun DinoGameScene(
         }
     }
     GameOverTextView(
-        gameState.isGameOver,
         modifier = Modifier
             .padding(top = 150.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        gameState.isGameOver,
     )
 }
 
@@ -213,7 +213,10 @@ fun ShowBoundsSwitchView() {
 }
 
 @Composable
-fun GameOverTextView(isGameOver: Boolean = true, modifier: Modifier = Modifier) {
+fun GameOverTextView(
+    modifier: Modifier = Modifier,
+    isGameOver: Boolean = true
+) {
     Column(modifier = modifier) {
         Text(
             text = if (isGameOver) "GAME OVER" else "",
@@ -239,7 +242,7 @@ fun GameOverTextView(isGameOver: Boolean = true, modifier: Modifier = Modifier) 
     }
 }
 
-fun DrawScope.drawBoundingBox(color: Color, rect: Rect, name: String? = null) {
+fun DrawScope.drawBoundingBox(color: Color, rect: Rect) {
     if (showBounds.value) {
         drawRect(color, rect.topLeft, rect.size, style = Stroke(3f))
         drawRect(
