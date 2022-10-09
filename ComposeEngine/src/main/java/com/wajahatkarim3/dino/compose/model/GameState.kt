@@ -18,8 +18,7 @@ class GameState(
         get() = _highScore
 
     fun increaseScore() {
-        requireNotNull(_currentScore.value).inc()
-        _currentScore.value = requireNotNull(_currentScore.value).inc()
+        _currentScore.postValue(requireNotNull(_currentScore.value).inc())
     }
 
     fun replay() {
