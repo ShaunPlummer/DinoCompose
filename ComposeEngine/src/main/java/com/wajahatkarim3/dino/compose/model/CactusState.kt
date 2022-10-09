@@ -17,8 +17,7 @@ data class CactusState(
         initCactus()
     }
 
-    fun initCactus()
-    {
+    fun initCactus() {
         cactusList.clear()
         var startX = deviceWidthInPixels + 150
         val cactusCount = 3
@@ -37,8 +36,7 @@ data class CactusState(
         }
     }
 
-    fun moveForward()
-    {
+    fun moveForward() {
         cactusList.forEach { cactus ->
             cactus.xPos -= cactusSpeed
         }
@@ -55,8 +53,7 @@ data class CactusState(
         }
     }
 
-    private fun nextCactusX(lastX: Int): Int
-    {
+    private fun nextCactusX(lastX: Int): Int {
         var nextX = lastX + distanceBetweenCactus
         nextX += rand(0, distanceBetweenCactus)
         if (nextX < deviceWidthInPixels)
@@ -73,8 +70,7 @@ data class CactusModel(
     var path: Path = CactusPath()
 ) {
 
-    fun getBounds() : Rect
-    {
+    fun getBounds(): Rect {
         return Rect(
             left = xPos.toFloat(),
             top = yPos.toFloat() - (path.getBounds().height * scale),

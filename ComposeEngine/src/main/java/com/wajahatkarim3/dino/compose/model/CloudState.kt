@@ -22,14 +22,12 @@ data class CloudState(
         }
     }
 
-    fun moveForward()
-    {
-        for (i in 0 until maxClouds)
-        {
+    fun moveForward() {
+        for (i in 0 until maxClouds) {
             val cloud = cloudsList[i]
             cloud.xPos -= speed
             if (cloud.xPos < -100) {
-                cloud.xPos = rand(deviceWidthInPixels, deviceWidthInPixels * rand(1,2))
+                cloud.xPos = rand(deviceWidthInPixels, deviceWidthInPixels * rand(1, 2))
                 cloud.yPos = rand(0, 100)
             }
         }
