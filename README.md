@@ -48,10 +48,9 @@ A Chrome T-Rex game in Jetpack Compose
 
 <div align="center">
   <sub>Built with ❤︎ by
-  <a href="https://twitter.com/WajahatKarim">Wajahat Karim</a> and
-  <a href="https://github.com/wajahatkarim3/DinoCompose/graphs/contributors">
-    contributors
-  </a>
+    <a href="https://twitter.com/WajahatKarim">Wajahat Karim</a> and
+    <a href="https://github.com/wajahatkarim3/DinoCompose/graphs/contributors">contributors</a>
+  </sub>
 </div>
 <br/>
 <br/>
