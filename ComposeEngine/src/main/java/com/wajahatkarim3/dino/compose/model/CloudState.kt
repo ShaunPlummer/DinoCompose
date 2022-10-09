@@ -12,7 +12,7 @@ data class CloudState(
     init {
         var startX = 150
         for (i in 0 until maxClouds) {
-            var cloud = CloudModel(
+            val cloud = CloudModel(
                 xPos = startX,
                 yPos = rand(0, 100)
             )
@@ -26,7 +26,7 @@ data class CloudState(
     {
         for (i in 0 until maxClouds)
         {
-            var cloud = cloudsList[i]
+            val cloud = cloudsList[i]
             cloud.xPos -= speed
             if (cloud.xPos < -100) {
                 cloud.xPos = rand(deviceWidthInPixels, deviceWidthInPixels * rand(1,2))

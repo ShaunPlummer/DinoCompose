@@ -12,7 +12,7 @@ data class EarthState(
     init {
         var startX = -EARTH_OFFSET.toFloat()
         for (i in 0 until maxBlocks) {
-            var earth = EarthModel(
+            val earth = EarthModel(
                 deviceWidthInPixels,
                 xPos = startX,
                 yPos = EARTH_Y_POSITION + (20 + i*10),
@@ -26,10 +26,10 @@ data class EarthState(
 
     fun moveForward()
     {
-        var endPos = blocksList[maxBlocks-1].xPos + blocksList[maxBlocks-1].size
+        val endPos = blocksList[maxBlocks-1].xPos + blocksList[maxBlocks-1].size
         for (i in 0 until maxBlocks)
         {
-            var block = blocksList[i]
+            val block = blocksList[i]
             block.xPos -= speed
             if ((block.xPos + block.size) < -EARTH_OFFSET ) {
                 block.xPos = endPos

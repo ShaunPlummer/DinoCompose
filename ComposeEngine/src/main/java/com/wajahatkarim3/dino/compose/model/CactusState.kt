@@ -21,10 +21,10 @@ data class CactusState(
     {
         cactusList.clear()
         var startX = deviceWidthInPixels + 150
-        var cactusCount = 3
+        val cactusCount = 3
 
         for (i in 0 until cactusCount) {
-            var cactus = CactusModel(
+            val cactus = CactusModel(
                 count = rand(1, 3),
                 scale = rand(0.85f, 1.2f),
                 xPos = startX,
@@ -45,7 +45,7 @@ data class CactusState(
 
         if (cactusList.first().xPos < -250) {
             cactusList.removeAt(0)
-            var cactus = CactusModel(
+            val cactus = CactusModel(
                 count = rand(1, 3),
                 scale = rand(0.85f, 1.2f),
                 xPos = nextCactusX(cactusList.last().xPos),
