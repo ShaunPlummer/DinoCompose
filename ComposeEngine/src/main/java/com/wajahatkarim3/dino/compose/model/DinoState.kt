@@ -2,7 +2,7 @@ package com.wajahatkarim3.dino.compose.model
 
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Path
-import com.wajahatkarim3.dino.compose.*
+import com.wajahatkarim3.dino.compose.EARTH_Y_POSITION
 
 data class DinoState(
     var xPos: Float = 60f,

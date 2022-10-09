@@ -6,17 +6,17 @@ import androidx.compose.ui.graphics.asAndroidPath
 import androidx.compose.ui.graphics.asComposePath
 import androidx.compose.ui.graphics.vector.PathParser
 
-val BASE_SCALE = 0.75f
-val DOUBT_FACTOR = 20f
+const val BASE_SCALE = 0.75f
+const val DOUBT_FACTOR = 20f
 
 // Cloud
 private var CLOUD_PATH_STR = "M169.895,88.699C167.27,71.887 152.695,58.984 135.156,58.984C128.559,58.984 122.219,60.809 116.719,64.215C108.355,50.156 93.293,41.406 76.563,41.406C50.715,41.406 29.688,62.434 29.688,88.281C29.688,88.441 29.688,88.609 29.691,88.766C13.082,91.566 0,106.047 0,123.438C0,142.824 16.16,158.594 35.547,158.594L164.453,158.594C183.84,158.594 200,142.824 200,123.438C200,105.898 186.707,91.324 169.895,88.699ZM169.895,88.699"
 private var cloudPath = PathParser().parsePathString(CLOUD_PATH_STR)
 fun CloudPath(): Path {
-    var path = cloudPath.toPath()
-    var scaleMatrix = Matrix()
+    val path = cloudPath.toPath()
+    val scaleMatrix = Matrix()
     scaleMatrix.setScale(BASE_SCALE, BASE_SCALE, 0f, 0f)
-    var androidPath = path.asAndroidPath()
+    val androidPath = path.asAndroidPath()
     androidPath.transform(scaleMatrix)
     return androidPath.asComposePath()
 }
@@ -25,10 +25,10 @@ fun CloudPath(): Path {
 private var CACTUS_PATH_STR = "M57.449,111.191L85.246,111.191L85.246,200.145L118.605,200.145L118.605,137.137L142.695,137.137C149.859,137.137 155.668,131.328 155.668,124.164L155.668,59.301C155.668,52.137 149.859,46.328 142.695,46.328C135.531,46.328 129.723,52.137 129.723,59.301L129.723,111.191L118.605,111.191L118.605,16.68C118.605,7.469 111.137,0 101.926,0C92.715,0 85.246,7.469 85.246,16.68L85.246,85.246L70.422,85.246L70.422,37.063C70.422,29.898 64.613,24.09 57.449,24.09C50.285,24.09 44.477,29.898 44.477,37.063L44.477,98.219C44.477,105.383 50.285,111.191 57.449,111.191ZM57.449,111.191"
 private var cactusPath = PathParser().parsePathString(CACTUS_PATH_STR)
 fun CactusPath(): Path {
-    var path = cactusPath.toPath()
-    var scaleMatrix = Matrix()
+    val path = cactusPath.toPath()
+    val scaleMatrix = Matrix()
     scaleMatrix.setScale(BASE_SCALE, BASE_SCALE, 0f, 0f)
-    var androidPath = path.asAndroidPath()
+    val androidPath = path.asAndroidPath()
     androidPath.transform(scaleMatrix)
     return androidPath.asComposePath()
 }
@@ -39,18 +39,18 @@ private var TREX_DINO_PATH_2_STR = "M93.027,18.996L173.41,18.996L173.41,60.836L9
 private var trexPath = PathParser().parsePathString(TREX_DINO_PATH_STR)
 private var trexPath2 = PathParser().parsePathString(TREX_DINO_PATH_2_STR)
 fun DinoPath(): Path {
-    var path = trexPath.toPath()
-    var scaleMatrix = Matrix()
+    val path = trexPath.toPath()
+    val scaleMatrix = Matrix()
     scaleMatrix.setScale(BASE_SCALE, BASE_SCALE, 0f, 0f)
-    var androidPath = path.asAndroidPath()
+    val androidPath = path.asAndroidPath()
     androidPath.transform(scaleMatrix)
     return androidPath.asComposePath()
 }
 fun DinoPath2(): Path {
-    var path = trexPath2.toPath()
-    var scaleMatrix = Matrix()
+    val path = trexPath2.toPath()
+    val scaleMatrix = Matrix()
     scaleMatrix.setScale(BASE_SCALE, BASE_SCALE, 0f, 0f)
-    var androidPath = path.asAndroidPath()
+    val androidPath = path.asAndroidPath()
     androidPath.transform(scaleMatrix)
     return androidPath.asComposePath()
 }
