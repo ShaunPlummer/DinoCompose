@@ -70,4 +70,11 @@ data class DinoState(
             bottom = yPos
         )
     }
+
+    fun isOverlapping(cactusModel: CactusModel): Boolean = getBounds()
+        .deflate(DOUBT_FACTOR)
+        .overlaps(
+            cactusModel.getBounds()
+                .deflate(DOUBT_FACTOR)
+        )
 }
